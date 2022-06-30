@@ -2,7 +2,6 @@ package hiber.model;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import org.springframework.context.annotation.Scope;
 
 import javax.persistence.*;
 import java.util.Objects;
