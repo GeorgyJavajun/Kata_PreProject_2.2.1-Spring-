@@ -34,10 +34,9 @@ public class MainApp {
       }
 
       List<User> usersByCar = carService.getUserByCar("OpelManta", 4);
-      for (User user : usersByCar) {
-         System.out.printf("name = %s\nlastName = %s\nemail = %s\ncar = %s", user.getFirstName(), user.getLastName(), user.getEmail(), user.getCar());
-      }
 
+      usersByCar.forEach(user ->
+              System.out.printf("name = %s\nlastName = %s\nemail = %s\ncar = %s", user.getFirstName(), user.getLastName(), user.getEmail(), user.getCar()));
 
 
       context.close();
