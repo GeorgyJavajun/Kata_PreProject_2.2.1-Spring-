@@ -1,8 +1,15 @@
 package hiber.model;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.context.annotation.Scope;
+
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
+@DynamicInsert
+@DynamicUpdate
 @Table(name = "users")
 public class User {
 
@@ -19,6 +26,11 @@ public class User {
    @Column(name = "email")
    private String email;
 
+   @OneToOne()
+   @JoinColumn(name = "car")
+   @MapsId()
+   private Car car;
+
    public User() {}
    
    public User(String firstName, String lastName, String email) {
@@ -27,10 +39,14 @@ public class User {
       this.email = email;
    }
 
+   public User(String firstName, String lastName, String email, Car car) {
+      this(firstName, lastName, email);
+      this.car = car;
+   }
+
    public Long getId() {
       return id;
    }
-
    public void setId(Long id) {
       this.id = id;
    }
@@ -38,7 +54,6 @@ public class User {
    public String getFirstName() {
       return firstName;
    }
-
    public void setFirstName(String firstName) {
       this.firstName = firstName;
    }
@@ -46,7 +61,6 @@ public class User {
    public String getLastName() {
       return lastName;
    }
-
    public void setLastName(String lastName) {
       this.lastName = lastName;
    }
@@ -54,8 +68,30 @@ public class User {
    public String getEmail() {
       return email;
    }
-
    public void setEmail(String email) {
       this.email = email;
    }
+
+   public Car getCar() { return car; }
+   public void setCar(Car car) { this.car = car; }
+
+   @Override
+   public String toString() {
+      return "User{" +
+              " firstName='" + firstName + '\'' +
+              ", lastName='" + lastName + '\'' +
+              ", email='" + email + '\'' +
+              '}';
+   }
+
+   @Override
+   public boolean equals(Object o) {
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
+      User user = (User) o;
+      return Objects.equals(id, user.id) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email);
+   }
+
+   @Override
+   public int hashCode() { return Objects.hash(id, firstName, lastName, email); }
 }
