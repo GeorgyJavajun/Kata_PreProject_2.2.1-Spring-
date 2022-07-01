@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class MainApp {
-   public static void main(String[] args) throws SQLException {
+   public static void main(String[] args) {
       AnnotationConfigApplicationContext context = 
             new AnnotationConfigApplicationContext(AppConfig.class);
 
@@ -33,10 +33,10 @@ public class MainApp {
          System.out.println();
       }
 
-      List<User> usersByCar = carService.getUserByCar("OpelManta", 4);
-
-      usersByCar.forEach(user ->
-              System.out.printf("name = %s\nlastName = %s\nemail = %s\ncar = %s", user.getFirstName(), user.getLastName(), user.getEmail(), user.getCar()));
+      System.out.println(carService.getUserByCar("BatCar", 1));
+      System.out.println(carService.getUserByCar("TimeMachine", 2));
+      System.out.println(carService.getUserByCar("FreeModel", 3));
+      System.out.println(carService.getUserByCar("OpelManta", 4));
 
 
       context.close();
